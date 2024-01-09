@@ -64,6 +64,12 @@ static std::vector<std::string> extractUrls(std::ifstream& file)
 	std::string line;
 	while (std::getline(file, line))
 	{
+		// Ignore comments (lines starting with '#')
+		if (line[0] == '#')
+		{
+			continue;
+		}
+
 		// Create a regular expression to match URLs
 		std::regex urlRegex("(https?://[^\\s/$.?#].[^\\s]*)");
 
