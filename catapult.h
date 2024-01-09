@@ -3,6 +3,11 @@
 int main(int argc, char* argv[]);
 
 /// <summary>
+/// This function displays a help message to the user.
+/// </summary>
+static void displayHelp();
+
+/// <summary>
 /// This function extracts URLs from a file and returns them in a vector.
 /// </summary>
 /// <param name="file">

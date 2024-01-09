@@ -17,6 +17,12 @@
 
 int main(int argc, char *argv[])
 {
+	// Display help message if no arguments provided or if -h/--help is provided
+	if (argc == 1 || (argc == 2 && (std::string(argv[1]) == "-h" || std::string(argv[1]) == "--help"))) {
+		displayHelp();
+		return 0;
+	}
+
 	// Check that the filename is provided as a command line argument
 	if (argc != 2)
 	{
@@ -54,6 +60,18 @@ int main(int argc, char *argv[])
 // ----------------
 // HELPER FUNCTIONS
 // ----------------
+
+static void displayHelp()
+{
+	std::cout << "Usage: catapult.exe [filename]" << std::endl;
+	std::cout << "Opens all URLs in the specified file in the default browser" << std::endl;
+	std::cout << std::endl;
+	std::cout << "Arguments:" << std::endl;
+	std::cout << "  filename    The name of the file containing the URLs to open" << std::endl;
+	std::cout << std::endl;
+	std::cout << "Options:" << std::endl;
+	std::cout << "  -h, --help  Display this help message" << std::endl;
+}
 
 static std::vector<std::string> extractUrls(std::ifstream& file)
 {
