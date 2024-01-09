@@ -90,7 +90,7 @@ static std::vector<std::string> extractUrls(std::ifstream& file)
 		}
 
 		// Create a regular expression to match URLs
-		std::regex urlRegex("(https?://[^\\s/$.?#].[^\\s]*)");
+		std::regex urlRegex("(https://[^\\s/$.?#].[^\\s]*)");
 
 		// Search for matches in the current line
 		std::smatch matches;
