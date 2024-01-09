@@ -36,7 +36,8 @@ int main(int argc, char *argv[])
 	std::ifstream file(fileName);
 	if (!file.is_open())
 	{
-		std::cerr << "Error: Unable to open file: '" << fileName << "'" << std::endl;
+		std::cerr << "Error: Unable to open file: '" << fileName << "'" << std::endl << std::endl;
+		displayHelp();
 		return 1;	// Exit with error code
 	}
 
