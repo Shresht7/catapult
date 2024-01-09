@@ -8,6 +8,11 @@
 #include <vector>
 #include "catapult.h"
 
+// Platform-specific libraries
+#ifdef _WIN32
+	#include <Windows.h>
+#endif
+
 int main(int argc, char *argv[])
 {
 	// Check that the filename is provided as a command line argument
@@ -30,10 +35,11 @@ int main(int argc, char *argv[])
 	// Extract the URLs from the file
 	std::vector<std::string> urls = extractUrls(file);
 
-	// Display the URLs
+	// Open each URL in the default browser
 	for (std::string url : urls)
 	{
-		std::cout << url << std::endl;
+		// ? May need to add a delay here to avoid opening too many browser tabs at once
+		openUrlInBrowser(url);
 	}
 
 	// Close the file
@@ -69,6 +75,17 @@ static std::vector<std::string> extractUrls(std::ifstream& file)
 
 	// Return the vector of URLs
 	return urls;
+}
+
+static void openUrlInBrowser(std::string url)
+{
+	#ifdef _WIN32
+		// On Windows, use the ShellExecute function
+		ShellExecuteA(NULL, "open", url.c_str(), NULL, NULL, SW_SHOWNORMAL);
+	#else
+		// TODO: Implement for other operating systems
+		std::cerr << "Cannot open URL on this operating system" << std::endl;
+	#endif
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
