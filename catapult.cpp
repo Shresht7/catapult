@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <regex>
 
 int main(int argc, char *argv[])
 {
@@ -25,11 +26,23 @@ int main(int argc, char *argv[])
 		return 1;	// Exit with error code
 	}
 
-	// Read and display the file contents
+	// Read and process each line of the file
 	std::string line;
 	while (std::getline(file, line))
 	{
-		std::cout << line << std::endl;
+		// Create a regular expression to match URLs
+		std::regex urlRegex("(https?://[^\\s/$.?#].[^\\s]*)");
+
+		// Search for matches in the current line
+		std::smatch matches;
+		if (std::regex_search(line, matches, urlRegex))
+		{
+			// Extract the URL from the match
+			std::string url = matches.str(1);
+
+			// Print the URL
+			std::cout << "Found URL: " << url << std::endl;
+		}
 	}
 
 	// Close the file
