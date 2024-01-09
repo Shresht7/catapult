@@ -5,6 +5,8 @@
 #include <fstream>
 #include <string>
 #include <regex>
+#include <vector>
+#include "catapult.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +19,6 @@ int main(int argc, char *argv[])
 
 	// Get the filename from the command line arguments
 	char* fileName = argv[1];
-
 	// Open the file
 	std::ifstream file(fileName);
 	if (!file.is_open())
@@ -25,6 +26,27 @@ int main(int argc, char *argv[])
 		std::cout << "Could not open file " << fileName << std::endl;
 		return 1;	// Exit with error code
 	}
+
+	// Extract the URLs from the file
+	std::vector<std::string> urls = extractUrls(file);
+
+	// Display the URLs
+	for (std::string url : urls)
+	{
+		std::cout << url << std::endl;
+	}
+
+	// Close the file
+	file.close();
+
+	return 0;	// Exit successfully
+
+}
+
+static std::vector<std::string> extractUrls(std::ifstream& file)
+{
+	// A vector to store the URLs
+	std::vector<std::string> urls;
 
 	// Read and process each line of the file
 	std::string line;
@@ -40,16 +62,13 @@ int main(int argc, char *argv[])
 			// Extract the URL from the match
 			std::string url = matches.str(1);
 
-			// Print the URL
-			std::cout << "Found URL: " << url << std::endl;
+			// Add the URL to the vector
+			urls.push_back(url);
 		}
 	}
 
-	// Close the file
-	file.close();
-
-	return 0;	// Exit successfully
-
+	// Return the vector of URLs
+	return urls;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

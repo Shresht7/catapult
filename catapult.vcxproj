@@ -136,6 +136,9 @@
     <None Include="README.md" />
     <None Include="test.catapult" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="catapult.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

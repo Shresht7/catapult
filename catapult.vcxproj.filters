@@ -26,4 +26,9 @@
     <None Include="README.md" />
     <None Include="test.catapult" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="catapult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
