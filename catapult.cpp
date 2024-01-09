@@ -1,11 +1,42 @@
 // catapult.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
+// Library
 #include <iostream>
+#include <fstream>
+#include <string>
 
-int main()
+int main(int argc, char *argv[])
 {
-    std::cout << "Hello World!\n";
+	// Check that the filename is provided as a command line argument
+	if (argc != 2)
+	{
+		std::cout << "Please provide a filename as a command line argument" << std::endl;
+		return 1;	// Exit with error code
+	}
+
+	// Get the filename from the command line arguments
+	char* fileName = argv[1];
+
+	// Open the file
+	std::ifstream file(fileName);
+	if (!file.is_open())
+	{
+		std::cout << "Could not open file " << fileName << std::endl;
+		return 1;	// Exit with error code
+	}
+
+	// Read and display the file contents
+	std::string line;
+	while (std::getline(file, line))
+	{
+		std::cout << line << std::endl;
+	}
+
+	// Close the file
+	file.close();
+
+	return 0;	// Exit successfully
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
