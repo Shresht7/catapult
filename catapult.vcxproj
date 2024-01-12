@@ -138,6 +138,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="catapult.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="catapult.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon\catapult.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
