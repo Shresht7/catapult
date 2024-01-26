@@ -15,8 +15,9 @@ catapult.exe <filename>
 ```
 
 - `filename`: The path to a file containing urls to launch.
-
-> [!NOTE] All this really does is extract urls from the file and tells the shell to open them. The shell does the rest and opens them in the default browser.
+ 
+> [!NOTE]
+> All this really does is extract urls from the file and tells the shell to open them. The shell does the rest and opens them in the default browser.
 
 Urls can be put in any plaintext file (e.g. `.txt`, `.md`, `.catapult`, `.browser-workspace`) on the disk - akin to Internet Shortcut (`.url`) files. For example:
 
