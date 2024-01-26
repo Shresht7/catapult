@@ -31,6 +31,16 @@ However, _unlike_ Internet Shortcuts that can only launch one url at a time, thi
 
 This allows me to swiftly get back to work, without having to recall the urls I had open for a given project.
 
+### 📄 File Association
+
+When you open a file with an un-encountered extension, Windows will ask you to choose a program to open it with. You can choose an application (you may have to browse to the `.exe`) and check the _"Always use this app to open"_ option to associate the file extension with this application.
+
+From then on, you can simply double-click on the file to launch it using the specified application.
+
+#### How does this work?
+
+The path to the file is passed as the first argument to the application. The application is designed to take the first argument, read the file, extract the url and instruct the shell to "start" the urls. The shell already knows how to handle the urls and launches them in the default browser.
+
 ## 🎯 Objectives
 
 One of the goals of this project was to leverage the _Windows file-association_ mechanism. By specifying a custom file extension (i.e. `.catapult`), that I associate with this application,
@@ -41,16 +51,6 @@ and thought to myself, "Maybe I should write this in a language I don't normally
 
 I thought, it can't get much simpler than this, so why the hell not?
 
-
-## 📄 File Association
-
-When you open a file with an un-encountered extension, Windows will ask you to choose a program to open it with. You can choose an application (you may have to browse to the `.exe`) and check the _"Always use this app to open"_ option to associate the file extension with this application.
-
-From then on, you can simply double-click on the file to launch it using the specified application.
-
-### How does this work?
-
-The path to the file is passed as the first argument to the application. The application is designed to take the first argument, read the file, extract the url and instruct the shell to "start" the urls. The shell already knows how to handle the urls and launches them in the default browser.
 
 ## 📄 License
 
