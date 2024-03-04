@@ -9,6 +9,8 @@
 // Platform-specific libraries
 #ifdef _WIN32
 	#include <Windows.h>
+#else
+	#include <cstdlib>
 #endif
 
 // ====
@@ -114,7 +116,8 @@ static void openUrlInBrowser(std::string url)
 		// On Windows, use the ShellExecute function
 		ShellExecuteA(NULL, "open", url.c_str(), NULL, NULL, SW_SHOWNORMAL);
 	#else
-		// TODO: Implement for other operating systems
-		std::cerr << "Cannot open URL on this operating system" << std::endl;
+		// On Linux, use the system() function to open a URL in the default browser
+		std::string command = "xdg-open " + url;
+		system(command.c_str());
 	#endif
 }
