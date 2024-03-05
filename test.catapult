@@ -1,6 +1,8 @@
 https://www.google.com
 https://www.github.com
-# Not a URL (TODO: Handle Invalid Locations)
+
+Not a URL or a file path
+
 C:\Users\shres\.gitconfig
 
 # This is a comment

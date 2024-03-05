@@ -4,6 +4,7 @@
 #include <string>
 #include <regex>
 #include <vector>
+#include <filesystem>
 #include "catapult.h"
 
 // Platform-specific libraries
@@ -12,6 +13,9 @@
 #else
 	#include <cstdlib>
 #endif
+
+// A regular expression to match URLs
+std::regex urlRegex("^https://[^\s/$.?#].[^\s]*$");
 
 // ====
 // MAIN
@@ -86,8 +90,16 @@ static std::vector<std::string> extractLocations(std::ifstream& file)
 		{
 			continue;
 		}
-		// Add the location to the vector
-		locations.push_back(line);
+		// Add the URL to the vector
+		else if (std::regex_match(line, urlRegex))
+		{
+			locations.push_back(line);
+		}
+		// Add valid file paths to the vector
+		else if (std::filesystem::exists(line))
+		{
+			locations.push_back(line);
+		}
 	}
 
 	// Return the vector of locations
