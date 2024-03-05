@@ -95,20 +95,29 @@ static std::vector<std::string> extractLocations(std::ifstream& file)
 	std::string line;
 	while (std::getline(file, line))
 	{
-		// Ignore comments (lines starting with '#')
-		if (line[0] == '#')
+		// Ignore comments (lines starting with '#') and empty lines
+		if (line.empty() || line[0] == '#')
 		{
 			continue;
 		}
+		
 		// Add the URL to the vector
-		else if (std::regex_match(line, urlRegex))
+		if (std::regex_match(line, urlRegex))
 		{
 			locations.push_back(line);
+			continue;
 		}
-		// Add valid file paths to the vector
-		else if (std::filesystem::exists(line))
+		
+		// If neither of the previous cases are true, assume the line is a file path.
+
+		// Normalize the path
+		std::filesystem::path path = std::filesystem::path(line).lexically_normal();
+
+		// Check if the path exists and add it to the vector if it does
+		if (std::filesystem::exists(path))
 		{
-			locations.push_back(line);
+			locations.push_back(path.string());
+			continue;
 		}
 	}
 
