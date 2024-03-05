@@ -1,6 +1,9 @@
 https://www.google.com
 https://www.github.com
-Not a URL
+
+Not a URL or a file path
+
+~/.gitconfig
 
 # This is a comment
 # https://www.bing.com

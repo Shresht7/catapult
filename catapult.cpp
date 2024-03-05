@@ -4,6 +4,7 @@
 #include <string>
 #include <regex>
 #include <vector>
+#include <filesystem>
 #include "catapult.h"
 
 // Platform-specific libraries
@@ -12,6 +13,9 @@
 #else
 	#include <cstdlib>
 #endif
+
+// A regular expression to match URLs
+std::regex urlRegex("^https://[^\\s/$.?#].[^\\s]*$");
 
 // ====
 // MAIN
@@ -43,14 +47,10 @@ int main(int argc, char *argv[])
 		return 1;	// Exit with error code
 	}
 
-	// Extract the URLs from the file
-	std::vector<std::string> urls = extractUrls(file);
-
-	// Open each URL in the default browser
-	for (std::string url : urls)
+	// Extract the locations from the file and open them
+	for (std::string location : extractLocations(file))
 	{
-		// ? May need to add a delay here to avoid opening too many browser tabs at once
-		openUrlInBrowser(url);
+		open(location);
 	}
 
 	// Close the file
@@ -67,19 +67,19 @@ int main(int argc, char *argv[])
 static void displayHelp()
 {
 	std::cout << "Usage: catapult.exe [filename]" << std::endl;
-	std::cout << "Opens all URLs in the specified file in the default browser" << std::endl;
+	std::cout << "Opens all URLs and Applications in the specified file" << std::endl;
 	std::cout << std::endl;
 	std::cout << "Arguments:" << std::endl;
-	std::cout << "  filename    The name of the file containing the URLs to open" << std::endl;
+	std::cout << "  filename    The name of the file containing the paths/URLs to open" << std::endl;
 	std::cout << std::endl;
 	std::cout << "Options:" << std::endl;
 	std::cout << "  -h, --help  Display this help message" << std::endl;
 }
 
-static std::vector<std::string> extractUrls(std::ifstream& file)
+static std::vector<std::string> extractLocations(std::ifstream& file)
 {
-	// A vector to store the URLs
-	std::vector<std::string> urls;
+	// A vector to store the locations
+	std::vector<std::string> locations;
 
 	// Read and process each line of the file
 	std::string line;
@@ -90,34 +90,30 @@ static std::vector<std::string> extractUrls(std::ifstream& file)
 		{
 			continue;
 		}
-
-		// Create a regular expression to match URLs
-		std::regex urlRegex("(https://[^\\s/$.?#].[^\\s]*)");
-
-		// Search for matches in the current line
-		std::smatch matches;
-		if (std::regex_search(line, matches, urlRegex))
+		// Add the URL to the vector
+		else if (std::regex_match(line, urlRegex))
 		{
-			// Extract the URL from the match
-			std::string url = matches.str(1);
-
-			// Add the URL to the vector
-			urls.push_back(url);
+			locations.push_back(line);
+		}
+		// Add valid file paths to the vector
+		else if (std::filesystem::exists(line))
+		{
+			locations.push_back(line);
 		}
 	}
 
-	// Return the vector of URLs
-	return urls;
+	// Return the vector of locations
+	return locations;
 }
 
-static void openUrlInBrowser(std::string url)
+static void open(std::string location)
 {
 	#ifdef _WIN32
 		// On Windows, use the ShellExecute function
-		ShellExecuteA(NULL, "open", url.c_str(), NULL, NULL, SW_SHOWNORMAL);
+		ShellExecuteA(NULL, "open", location.c_str(), NULL, NULL, SW_SHOWNORMAL);
 	#else
-		// On Linux, use the system() function to open a URL in the default browser
-		std::string command = "xdg-open " + url;
+		// On Linux, use the system() function to open the location
+		std::string command = "xdg-open " + location;
 		system(command.c_str());
 	#endif
 }
