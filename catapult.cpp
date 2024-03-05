@@ -113,7 +113,7 @@ static void open(std::string location)
 		ShellExecuteA(NULL, "open", location.c_str(), NULL, NULL, SW_SHOWNORMAL);
 	#else
 		// On Linux, use the system() function to open the location
-		std::string command = "xdg-open " + url;
+		std::string command = "xdg-open " + location;
 		system(command.c_str());
 	#endif
 }
