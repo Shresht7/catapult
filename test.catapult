@@ -1,9 +1,9 @@
 https://www.google.com
 https://www.github.com
 
-Not a URL or a file path
-
 ~/.gitconfig
 
-# This is a comment
+# This is a comment that will be ignored
 # https://www.bing.com
+
+Not a URL or a file path    # This should hopefully be ignored
