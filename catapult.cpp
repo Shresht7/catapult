@@ -15,7 +15,7 @@
 #endif
 
 // A regular expression to match URLs
-std::regex urlRegex("^https://[^\s/$.?#].[^\s]*$");
+std::regex urlRegex("^https://[^\\s/$.?#].[^\\s]*$");
 
 // ====
 // MAIN
