@@ -8,20 +8,21 @@ int main(int argc, char* argv[]);
 static void displayHelp();
 
 /// <summary>
-/// This function extracts URLs from a file and returns them in a vector.
+/// This function extracts the locations from a file and returns them in a vector. A 
+/// location can be a URL or a file path.
 /// </summary>
 /// <param name="file">
-/// The file to extract URLs from. The file must be open before calling this function.
+/// The file to extract locations from. The file must be open before calling this function.
 /// </param>
 /// <returns>
-/// A vector of strings, each string being a URL found in the file.
+/// A vector of strings, each string being a location found in the file.
 /// </returns>
-static std::vector<std::string> extractUrls(std::ifstream& file);
+static std::vector<std::string> extractLocations(std::ifstream& file);
 
 /// <summary>
-/// This function opens a URL in the default browser.
+/// This function opens a location. A location can be a URL or a file path.
 /// </summary>
-/// <param name="url">
-/// The URL to open.
+/// <param name="location">
+/// The location to open.
 /// </param>
-static void openUrlInBrowser(std::string url);
+static void open(std::string location);
