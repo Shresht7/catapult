@@ -95,8 +95,8 @@ static std::vector<std::string> extractLocations(std::ifstream& file)
 	std::string line;
 	while (std::getline(file, line))
 	{
-		// Ignore comments (lines starting with '#')
-		if (line[0] == '#')
+		// Ignore comments (lines starting with '#') and empty lines
+		if (line.empty() || line[0] == '#')
 		{
 			continue;
 		}
