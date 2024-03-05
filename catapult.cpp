@@ -14,6 +14,9 @@
 	#include <cstdlib>
 #endif
 
+// VERSION
+const std::string VERSION = "v0.2.1";
+
 // A regular expression to match URLs
 std::regex urlRegex("^https://[^\\s/$.?#].[^\\s]*$");
 
@@ -26,6 +29,12 @@ int main(int argc, char *argv[])
 	// Display help message if no arguments provided or if -h/--help is provided
 	if (argc == 1 || (argc == 2 && (std::string(argv[1]) == "-h" || std::string(argv[1]) == "--help"))) {
 		displayHelp();
+		return 0;
+	}
+
+	// Display version if -v/--version is provided
+	if (argc == 2 && (std::string(argv[1]) == "-v" || std::string(argv[1]) == "--version")) {
+		std::cout << VERSION << std::endl;
 		return 0;
 	}
 
@@ -67,13 +76,14 @@ int main(int argc, char *argv[])
 static void displayHelp()
 {
 	std::cout << "Usage: catapult.exe [filename]" << std::endl;
-	std::cout << "Opens all URLs and Applications in the specified file" << std::endl;
+	std::cout << "Opens all URLs and filepaths in the specified file" << std::endl;
 	std::cout << std::endl;
 	std::cout << "Arguments:" << std::endl;
 	std::cout << "  filename    The name of the file containing the paths/URLs to open" << std::endl;
 	std::cout << std::endl;
 	std::cout << "Options:" << std::endl;
 	std::cout << "  -h, --help  Display this help message" << std::endl;
+	std::cout << "  -v, --version  Display the version number" << std::endl;
 }
 
 static std::vector<std::string> extractLocations(std::ifstream& file)
